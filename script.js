@@ -1,8 +1,6 @@
 $(document).ready(function () {
 
 
-
-
     var APIKey = "42370f4168f01b2411c7828aba774200";
     var cityArray = JSON.parse(localStorage.getItem('searchedCity'));
 
@@ -45,13 +43,8 @@ $(document).ready(function () {
     // var cityArray = localStorage.getItem('searchedCity').split(",");
     function displayCurrentWeather(city) {
 
-
-
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + APIKey + "&units=imperial";
         $(".city").text(city);
-
-        console.log(queryURL);
-
 
         $.ajax({
             url: queryURL,
@@ -60,28 +53,12 @@ $(document).ready(function () {
 
             .then(function (response) {
 
-                console.log(queryURL);
-
                 $(".weather-info").empty();
                 $(".condition-image").empty();
 
-
-                console.log(response);
-
-
                 var weatherInfo = $(".weather-info");
-
-                console.log(weatherInfo);
-
-
-
                 var tempResponse = response.main.temp;
-
-
-
                 var temperature = $("<div>").text("Temperature: " + tempResponse + "℉");
-
-
 
                 weatherInfo.append(temperature)
 
@@ -116,8 +93,40 @@ $(document).ready(function () {
                 var iconurlCurrent = "http://openweathermap.org/img/w/" + iconcodeCurrent + ".png";
 
                 $(".condition-image").append('<img src="' + iconurlCurrent + '" />');
+                var lon = response.coord.lon;
+                 var lat = response.coord.lat;
+                 uvIndex(lon, lat);
 
             });
+            //uvIndex();
+    }
+
+    function uvIndex(lon, lat) {
+        var indexURL = `https://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`;
+            console.log(indexURL);
+        $.ajax({
+            url: indexURL,
+            method: "GET"
+        }).done(function(uvInfo) {
+            console.log(uvInfo)
+            var uvValue = uvInfo.value;
+            console.log(uvValue);
+            $(".weather-info").append("<p id='uv'>" + "UV Index: " + "</p>");
+            var uvBtn = $("<button>").text(uvValue);
+            $("#uv").append(uvBtn);
+            //button styles
+            if (uvValue < 3) {
+                uvBtn.css("background-color", "Green");
+            } else if (uvValue < 6) {
+                uvBtn.css("background-color", "Yellow");
+            } else if (uvValue < 8) {
+                uvBtn.css("background-color", "Orange");
+            } else if (uvValue < 11) {
+                uvBtn.css("background-color", "Red");
+            } else {
+                uvBtn.css("background-color", "Purple");
+            }
+        })
     }
 
     // Function to display 5-day forecast temperatures calling OpenWeather:
@@ -135,11 +144,9 @@ $(document).ready(function () {
 
                 .then(function (responseTemp) {
 
-                    console.log("this is responseTemp" + responseTemp)
-
                     $(".forecastCards").empty();
 
-                    for (var i = 0; i < 5; i++) {
+                    for (var i = 0; i < responseTemp.list.length; i+=8) {
 
                         console.log(responseTemp.list[i].main.temp);
 
@@ -243,6 +250,8 @@ $(document).ready(function () {
         event.preventDefault();
 
         displayCurrentWeather(event.currentTarget.innerText);
+        fiveDayForecast(event.currentTarget.innerText);
+        
 
     })
 
