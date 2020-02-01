@@ -1,7 +1,7 @@
 # Weather Dashboard
 User have the ability to search the current weather and 5 day forecast as well as view past searches.
 # Link to application
-https://gilsolis.github.io/Weather_Dashboard/
+https://alexshanless.github.io/weatherdash/
 # Built with
 * HTML5
 * [BootStrap](https://getbootstrap.com/) - Build responsive, mobile-first projects on the web with the world's most popular front-end component library.
