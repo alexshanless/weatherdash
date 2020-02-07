@@ -74,7 +74,7 @@ $(document).ready(function () {
 
                 var windResponse = response.wind.speed;
 
-                console.log("response is: ", response)
+                // console.log("response is: ", response)
 
                 // Create div to display wind
 
@@ -101,14 +101,14 @@ $(document).ready(function () {
 
     function uvIndex(lon, lat) {
         var indexURL = `https://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`;
-            console.log(indexURL);
+            // console.log(indexURL);
         $.ajax({
             url: indexURL,
             method: "GET"
         }).done(function(uvInfo) {
-            console.log(uvInfo)
+            // console.log(uvInfo)
             var uvValue = uvInfo.value;
-            console.log(uvValue);
+            // console.log(uvValue);
             $(".weather-info").append("<p id='uv'>" + "UV Index: " + "</p>");
             var uvBtn = $("<button>").text(uvValue);
             $("#uv").append(uvBtn);
@@ -146,7 +146,7 @@ $(document).ready(function () {
 
                     for (var i = 0; i < responseTemp.list.length; i+=8) {
 
-                        console.log(responseTemp.list[i].main.temp);
+                        // console.log(responseTemp.list[i].main.temp);
 
 
 
@@ -154,7 +154,7 @@ $(document).ready(function () {
                         var forecastDate = responseTemp.list[i].dt_txt.slice(0, 10);
                         // forecastTemp.moment().format(');
                         NewforecastDate = moment(forecastDate, 'YYYY/MM/DD/').add(1,'day');
-                        console.log(NewforecastDate._i);
+                        // console.log(NewforecastDate._i);
 
                         var forecastTemp = responseTemp.list[i].main.temp;
                         var forecastHumidity = responseTemp.list[i].main.humidity;
@@ -224,7 +224,7 @@ $(document).ready(function () {
         // 5-Day Forecast heading text
 
         var fiveDayText = $('#five-day-text')
-        console.log(fiveDayText)
+        // console.log(fiveDayText)
         $(fiveDayText).text("3-Hour Forecast: ")
 
         // Call functions
@@ -232,7 +232,7 @@ $(document).ready(function () {
         displayCurrentWeather(inputCityName);
         displaySearchedCity(inputCityName);
         fiveDayForecast(inputCityName)
-        console.log(cityArray)
+        // console.log(cityArray)
 
     });
 
