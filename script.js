@@ -19,7 +19,6 @@ $(document).ready(function () {
 
         $(".city-card-body").empty();
 
-        console.log(cityArray);
 
         // for loop over the cityarry and then dynamically append each item in the array to the city-card-body. 
 
@@ -88,7 +87,6 @@ $(document).ready(function () {
                 // Display weather icon
 
                 var iconcodeCurrent = response.weather[0].icon
-                console.log(iconcodeCurrent);
 
                 var iconurlCurrent = "http://openweathermap.org/img/w/" + iconcodeCurrent + ".png";
 
@@ -154,7 +152,6 @@ $(document).ready(function () {
 
                         // Variables for forecast data:
                         var forecastDate = responseTemp.list[i].dt_txt.slice(0, 10);
-                        console.log(forecastDate);
                         // forecastTemp.moment().format(');
                         NewforecastDate = moment(forecastDate, 'YYYY/MM/DD/').add(1,'day');
                         console.log(NewforecastDate._i);
@@ -163,7 +160,6 @@ $(document).ready(function () {
                         var forecastHumidity = responseTemp.list[i].main.humidity;
                         var iconcode = responseTemp.list[i].weather[0].icon;
                       
-                        console.log(iconcode);
                         var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
                         var cardContent =
@@ -220,7 +216,6 @@ $(document).ready(function () {
         //  Today's date goes next to city
 
         var todayDate = $('.today-date');
-        console.log(todayDate)
 
         // I AM TRYING TO MAKE A SPACE BETWEEN CITY AND DATE:
         $(todayDate).text("(" + (moment().format('MM/DD/YYYY')) + ")")
@@ -244,8 +239,6 @@ $(document).ready(function () {
 
     // CLICK EVENT FOR previously searched city to display that city's weather again
     $(".city-card-body").on("click", ".new-city-p", function (event) {
-
-        console.log(event.currentTarget.innerText);
 
         event.preventDefault();
 
